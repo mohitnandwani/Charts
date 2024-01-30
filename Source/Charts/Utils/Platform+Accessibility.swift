@@ -62,7 +62,10 @@ open class NSUIAccessibilityElement: UIAccessibilityElement
         set
         {
             guard let containerView = containerView else { return }
-            super.accessibilityFrame = containerView.convert(newValue, to: UIScreen.main.coordinateSpace)
+			#if !os(visionOS)
+			super.accessibilityFrame = containerView.convert(newValue, to: UIScreen.main.coordinateSpace)
+			super.accessibilityFrame = containerView.convert(newValue, to: UIScreen.main.coordinateSpace)
+			#endif
         }
     }
 }

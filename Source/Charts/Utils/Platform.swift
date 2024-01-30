@@ -13,7 +13,9 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 	public typealias NSUIFont = UIFont
 	public typealias NSUIImage = UIImage
 	public typealias NSUIScrollView = UIScrollView
-    public typealias NSUIScreen = UIScreen
+	#if !os(visionOS)
+	public typealias NSUIScreen = UIScreen
+	#endif
 	public typealias NSUIDisplayLink = CADisplayLink
 
     extension NSUIColor
@@ -49,6 +51,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
         }
     }
     
+	#if !os(visionOS)
     extension UIScreen
     {
         @objc final var nsuiScale: CGFloat
@@ -56,11 +59,13 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
             return self.scale
         }
     }
+	
 
     func NSUIMainScreen() -> NSUIScreen?
     {
         return NSUIScreen.main
     }
+	#endif
 
 #endif
 
